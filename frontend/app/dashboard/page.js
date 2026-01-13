@@ -4,16 +4,24 @@ import AgentCard from "../components/dashboard/agentCard";
 import Header from "../components/dashboard/header";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import { getProjects } from "@/lib/api";
 
 export default async function DashboardPage() {
   const session = await getServerSession();
-
   if (!session) redirect("/login");
+
+  const projects = await getProjects();
+
+  const latestProjects = projects
+    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+    .slice(0, 2);
+
   return (
     <>
       <main className="flex-1 px-10 py-4">
         <Header user={session.user} />
       </main>
+
       {/* CREATE PROJECT */}
       <div className="border border-gray-800 rounded-lg p-6 bg-linear-to-br from-gray-900 to-black">
         <h2 className="text-xl font-semibold mb-2">Create New AI Project</h2>
@@ -32,18 +40,33 @@ export default async function DashboardPage() {
       <section className="mt-14">
         <h2 className="text-2xl font-semibold mb-6">Your Projects</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <ProjectCard
-            title="SaaS Website Builder"
-            status="Executing"
-            tasks="12 Tasks"
-          />
-          <ProjectCard
-            title="CI/CD Automation"
-            status="Planning"
-            tasks="8 Tasks"
-          />
-        </div>
+        {latestProjects.length === 0 ? (
+          <p className="text-gray-400">No projects created yet</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {latestProjects.map((project) => (
+              <ProjectCard
+                key={project.id}
+                id={project.id}
+                title={project.name}
+                status={project.status}
+                tasks={`${project.tasks?.length || 0} Tasks`}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* VIEW ALL */}
+        {projects.length > 2 && (
+          <div className="mt-6">
+            <Link
+              href="/dashboard/projects"
+              className="text-blue-400 hover:underline text-sm"
+            >
+              View all projects →
+            </Link>
+          </div>
+        )}
       </section>
 
       {/* AGENTS */}

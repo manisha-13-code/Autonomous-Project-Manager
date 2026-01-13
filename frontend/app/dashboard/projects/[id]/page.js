@@ -11,9 +11,8 @@ import {
 export default function ProjectDetailsPage({ params }) {
   const router = useRouter();
   const urlParams = useParams();
-  
-  // Use params prop first (server-passed), fallback to client hook
-  const projectId = params?.id || urlParams?.id;
+
+  const { id: projectId } = useParams();
 
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
