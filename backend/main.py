@@ -19,7 +19,7 @@ app = FastAPI(title="Autonomous AI Project Manager")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://autonomous-project-manager-3.onrender.com/"
+        "https://autonomous-project-manager-1.onrender.com/"
     ],
     allow_credentials=True,
     allow_methods=["*"],
