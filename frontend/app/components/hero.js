@@ -1,6 +1,7 @@
 "use client"
 import React from "react";
 import Image from "next/image";
+import { signIn } from "next-auth/react";
 const hero = () => {
   return (
     <section id="home" className="flex flex-col md:flex-row items-center mt-20 justify-between px-10 py-20 bg-linear-to-b from-black to-gray-900">
@@ -16,7 +17,7 @@ const hero = () => {
           project delivery.
         </p>
 
-        <button className="mt-8 bg-black border border-gray-700 px-6 py-3 rounded-md hover:bg-gray-900 cursor-pointer">
+        <button onClick={() => signIn("google")} className="mt-8 bg-black border border-gray-700 px-6 py-3 rounded-md hover:bg-gray-900 cursor-pointer">
           Activate AI →
         </button>
       </div>

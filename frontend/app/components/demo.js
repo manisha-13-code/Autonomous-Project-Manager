@@ -1,4 +1,5 @@
 "use client"
+import { signIn } from "next-auth/react";
 const Demo = () => {
   return (
     <section id="demo" className="w-full bg-black text-white py-24 px-6 md:px-20">
@@ -23,11 +24,11 @@ const Demo = () => {
           </p>
 
           <div className="flex flex-col md:flex-row gap-4 justify-center">
-            <button className="px-6 py-3 rounded-lg bg-green-500 text-black font-semibold hover:bg-green-400 transition">
+            <button onClick={() => signIn("google")} className="px-6 py-3 rounded-lg bg-green-500 text-black cursor-pointer font-semibold hover:bg-green-400 transition">
               Run Demo
             </button>
 
-            <button className="px-6 py-3 rounded-lg border border-gray-600 hover:border-gray-400 transition">
+            <button onClick={() => signIn("google")} className="px-6 py-3 rounded-lg border border-gray-600 cursor-pointer hover:border-gray-400 transition">
               View Agent Logs
             </button>
           </div>

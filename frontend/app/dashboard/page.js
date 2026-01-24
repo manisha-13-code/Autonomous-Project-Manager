@@ -30,7 +30,7 @@ export default async function DashboardPage() {
         </p>
 
         <Link href="/dashboard/new-project">
-          <button className="bg-white text-black px-6 py-3 rounded-md font-medium hover:bg-gray-200">
+          <button className="bg-white text-black px-6 py-3 rounded-md font-medium cursor-pointer hover:bg-gray-200">
             + New Project
           </button>
         </Link>

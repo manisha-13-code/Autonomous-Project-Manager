@@ -26,12 +26,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ---------------- ROOT ----------------
 @app.get("/")
 def root():
     return {"message": "Autonomous AI Project Manager API running 🚀"}
 
-# ---------------- PROJECTS ----------------
+
 @app.post("/projects", response_model=ProjectResponse)
 def create_project(data: ProjectCreate, db: Session = Depends(get_db)):
     project = Project(
@@ -44,7 +43,6 @@ def create_project(data: ProjectCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(project)
 
-    # 🔥 Run AI pipeline AFTER project is saved
     run_project_orchestrator(db, project)
 
     return project
@@ -81,7 +79,7 @@ def delete_project(project_id: int, db: Session = Depends(get_db)):
 
     return {"message": f"Project {project_id} deleted successfully"}
 
-# ---------------- LOGS ----------------
+
 @app.get("/projects/logs", response_model=list[LogResponse])
 def get_all_logs(db: Session = Depends(get_db)):
     return (
@@ -102,7 +100,6 @@ def get_project_logs(project_id: int, db: Session = Depends(get_db)):
 
 
 
-# main.py - Fixed /run endpoint with proper orchestrator call and error handling
 @app.post("/projects/{project_id}/run")
 def run_project(project_id: int, db: Session = Depends(get_db)):
     project = db.query(Project).filter(Project.id == project_id).first()
@@ -130,7 +127,6 @@ def run_project(project_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail=f"Orchestrator failed: {str(e)}")
 
 
-# ---------------- AGENTS INFO ----------------
 @app.get("/agents")
 def agents():
     return [

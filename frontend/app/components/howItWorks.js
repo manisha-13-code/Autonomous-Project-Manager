@@ -3,12 +3,10 @@ const HowItWorks = () => {
   return (
     <section id="howItWorks" className="w-full bg-linear-to-b from-black to-gray-900 text-white py-24 px-6 md:px-20">
       <div className="max-w-6xl mx-auto">
-        {/* Heading */}
         <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">
           How It Works
         </h2>
 
-        {/* Steps */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="border border-gray-800 rounded-xl p-6">
             <span className="text-green-400 text-sm">STEP 01</span>
