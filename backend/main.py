@@ -19,8 +19,7 @@ app = FastAPI(title="Autonomous AI Project Manager")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        # "https://autonomous-project-manager.vercel.app"
-        "http://localhost:3000"
+        "https://autonomous-project-manager.vercel.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],
